@@ -25,6 +25,7 @@ spec:
       labels:
         app: hello-world
     spec:
+      revisionHistoryLimit: 1
       containers:
         - name: hello-world
           image: hashicorp/http-echo:0.2.3
