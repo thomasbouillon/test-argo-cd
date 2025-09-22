@@ -41,7 +41,7 @@ metadata:
   name: hello-world
 spec:
   rules:
-    - host: hello-world.local
+    - host: myownserver.thomasbouillon.fr
       http:
         paths:
           - path: /
