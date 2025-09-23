@@ -16,9 +16,15 @@ spec:
 
 ---
 
-apiVersion: v1
-kind: Secret
+apiVersion: cert-manager.io/v1
+kind: Certificate
 metadata:
-  name: letsencrypt-staging
-type: Opaque
-data:
+  name: hello-world-tls
+spec:
+  secretName: hello-world-tls
+  issuerRef:
+    name: letsencrypt-staging
+    kind: Issuer
+  commonName: myownserver.thomasbouillon.fr
+  dnsNames:
+    - myownserver.thomasbouillon.fr
