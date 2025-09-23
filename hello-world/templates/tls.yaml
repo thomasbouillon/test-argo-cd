@@ -1,0 +1,24 @@
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: letsencrypt-staging
+spec:
+  acme:
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    email: "{{ .Values.certManagerIssuerEmail }}"
+    profile: tlsserver
+    privateKeySecretRef:
+      name: letsencrypt-staging
+    solvers:
+      - http01:
+          ingress:
+            name: hello-world
+
+---
+
+apiVersion: v1
+kind: Secret
+metadata:
+  name: letsencrypt-staging
+type: Opaque
+data:
