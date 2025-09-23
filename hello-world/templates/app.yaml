@@ -40,6 +40,10 @@ kind: Ingress
 metadata:
   name: hello-world
 spec:
+  tls:
+    - hosts:
+        - myownserver.thomasbouillon.fr
+      secretName: letsencrypt-staging
   rules:
     - host: myownserver.thomasbouillon.fr
       http:
