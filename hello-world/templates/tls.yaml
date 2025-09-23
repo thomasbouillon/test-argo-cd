@@ -21,10 +21,15 @@ kind: Certificate
 metadata:
   name: hello-world-tls
 spec:
-  secretName: hello-world-tls
-  issuerRef:
-    name: letsencrypt-staging
-    kind: Issuer
+  secretName: letsencrypt-staging
+  duration: 2160h    # 90d (default: same as Let's Encrypt)
+  renewBefore: 360h  # Renew 15d before expiry
+  subject:
+    organizations:
+      - My Company
   commonName: myownserver.thomasbouillon.fr
   dnsNames:
     - myownserver.thomasbouillon.fr
+  issuerRef:
+    name: letsencrypt-staging
+    kind: Issuer
