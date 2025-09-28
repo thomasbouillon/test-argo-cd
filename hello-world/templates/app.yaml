@@ -13,7 +13,7 @@ spec:
   template:
     spec:
       containers:
-        - image: :sha256:7225b328527fd16b5224473d420e9329c35e266181285f9340085259419ccfe0
+        - image: :sha256:2ba7b0b2366f060d9baedda6061fdc7401f002aedd7a0a311e3cd484123f898a
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -32,7 +32,7 @@ spec:
       revisionHistoryLimit: 1
       containers:
         - name: hello-world
-          image: :sha256:7225b328527fd16b5224473d420e9329c35e266181285f9340085259419ccfe0
+          image: :sha256:2ba7b0b2366f060d9baedda6061fdc7401f002aedd7a0a311e3cd484123f898a
           args:
             - "-text=Hello, World! Deployed via ArgoCD"
             - "-listen=:8080"
@@ -64,4 +64,4 @@ spec:
   template:
     spec:
       containers:
-        - image: :sha256:7225b328527fd16b5224473d420e9329c35e266181285f9340085259419ccfe0
+        - image: :sha256:2ba7b0b2366f060d9baedda6061fdc7401f002aedd7a0a311e3cd484123f898a
