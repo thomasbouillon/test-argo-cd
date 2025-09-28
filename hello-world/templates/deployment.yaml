@@ -15,7 +15,7 @@ spec:
       revisionHistoryLimit: 1
       containers:
         - name: hello-world
-          image: hashicorp/http-echo:0.2.3
+          image: ghcr.io/thomasbouillon/test-argo-cd/my-static-website@sha256:d993052d5c6e3d78fdc779be8e8e66186e56b6945dc88c493fb2a3e3252ae8ff
           args:
             - "-text=Hello, World! Deployed via ArgoCD"
             - "-listen=:8080"
