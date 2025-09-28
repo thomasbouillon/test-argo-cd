@@ -84,11 +84,11 @@ jobs:
         env:
           IMAGE: ${{ needs.build.outputs.image }}
         run: |
-          yq -i e '.spec.template.spec.containers[0].image = strenv(IMAGE)' ./hello-world/templates/app.yaml
+          yq -i e '.spec.template.spec.containers[0].image = strenv(IMAGE)' ./hello-world/templates/deployment.yaml
 
       - name: Check for changes
         run: |
-          if git diff --exit-code ./hello-world/templates/app.yaml; then
+          if git diff --exit-code ./hello-world/templates/deployment.yaml; then
             echo "No changes to commit"
             exit 0
           else
@@ -99,7 +99,7 @@ jobs:
         env:
           IMAGE: ${{ needs.build.outputs.image }}
         run: |
-          git add ./hello-world/templates/app.yaml
+          git add ./hello-world/templates/deployment.yaml
           git commit -m "Update image to $IMAGE"
           git push origin production
     
