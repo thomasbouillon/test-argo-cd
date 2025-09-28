@@ -30,7 +30,7 @@ jobs:
     permissions:
       packages: write
     outputs:
-      image: "${{ steps.build-push.outputs.imageid }}:${{ steps.build-push.outputs.digest }}"
+      image: "ghcr.io/${{ github.repository }}/my-static-website@${{ steps.build-push.outputs.digest }}"
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -52,15 +52,9 @@ jobs:
           context: ./app
           file: ./app/Dockerfile
           push: true
-          tags: ghcr.io/${{ github.repository }}/my-static-website
+          tags: ghcr.io/${{ github.repository }}/my-static-website:latest
           cache-from: type=gha,scope=my-static-website
           cache-to: type=gha,mode=max,scope=my-static-website
-
-      - name: Debug
-        run: |
-          echo "Image: ${{ steps.build-push.outputs.imageid }}"
-          echo "Digest: ${{ steps.build-push.outputs.digest }}"
-          echo "Metadata: ${{ steps.build-push.outputs.metadata }}"
 
   deploy:
     needs: build
