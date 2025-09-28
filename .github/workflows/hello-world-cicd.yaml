@@ -30,7 +30,7 @@ jobs:
     permissions:
       packages: write
     outputs:
-      image: "${{ steps.build-push.outputs.image }}:${{ steps.build-push.outputs.digest }}"
+      image: "${{ steps.build-push.outputs.imageid }}:${{ steps.build-push.outputs.digest }}"
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
