@@ -6,10 +6,31 @@ on:
       - main
 
 jobs:
+  detect-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      changes: ${{ steps.check.outputs.changes }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Check for changes in app directory
+        id: check
+        run: |
+          if git diff --name-only HEAD~1 HEAD | grep -q '^app/'; then
+            echo "changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "changes=false" >> $GITHUB_OUTPUT
+          fi
+
   build:
+    needs: detect-changes
+    if: needs.detect-changes.outputs.changes == 'true'
     runs-on: ubuntu-latest
     permissions:
       packages: write
+    outputs:
+      image: "${{ steps.build-push.outputs.image }}:${{ steps.build-push.outputs.digest }}"
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -25,6 +46,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build Docker image
+        id: build-push
         uses: docker/build-push-action@v2
         with:
           context: ./app
@@ -33,3 +55,38 @@ jobs:
           tags: ghcr.io/${{ github.repository }}/my-static-website:latest
           cache-from: type=gha,scope=my-static-website
           cache-to: type=gha,mode=max,scope=my-static-website
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          ref: production
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+      
+      - name: download yq
+        env:
+          VERSION: v4.30.8
+          BINARY: yq_linux_amd64
+        run: |
+          wget https://github.com/mikefarah/yq/releases/download/${VERSION}/${BINARY}.tar.gz -O - |\
+          tar xz && mv ${BINARY} /usr/local/bin/yq
+
+      - name: Update image in deployment.yaml
+        env:
+          IMAGE: ${{ needs.build.outputs.image }}
+        run: |
+          yq -i e '.spec.template.spec.containers[0].image = strenv(IMAGE)' ./k8s/deployment.yaml
+
+      - name: Commit and push changes
+        run: |
+          git add ./k8s/deployment.yaml
+          git commit -m "Update image to $IMAGE"
+          git push origin production
+    
