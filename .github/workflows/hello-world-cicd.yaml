@@ -82,11 +82,11 @@ jobs:
         env:
           IMAGE: ${{ needs.build.outputs.image }}
         run: |
-          yq -i e '.spec.template.spec.containers[0].image = strenv(IMAGE)' ./k8s/deployment.yaml
+          yq -i e '.spec.template.spec.containers[0].image = strenv(IMAGE)' ./hello-world/templates/app.yaml
 
       - name: Check for changes
         run: |
-          if git diff --exit-code ./k8s/deployment.yaml; then
+          if git diff --exit-code ./hello-world/templates/app.yaml; then
             echo "No changes to commit"
             exit 0
           else
