@@ -10,6 +10,10 @@ spec:
     - protocol: TCP
       port: 80
       targetPort: 8080
+  template:
+    spec:
+      containers:
+        - image: :sha256:7225b328527fd16b5224473d420e9329c35e266181285f9340085259419ccfe0
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -28,7 +32,7 @@ spec:
       revisionHistoryLimit: 1
       containers:
         - name: hello-world
-          image: hashicorp/http-echo:0.2.3
+          image: :sha256:7225b328527fd16b5224473d420e9329c35e266181285f9340085259419ccfe0
           args:
             - "-text=Hello, World! Deployed via ArgoCD"
             - "-listen=:8080"
@@ -57,3 +61,7 @@ spec:
                 name: hello-world
                 port:
                   number: 80
+  template:
+    spec:
+      containers:
+        - image: :sha256:7225b328527fd16b5224473d420e9329c35e266181285f9340085259419ccfe0
