@@ -95,7 +95,7 @@ jobs:
 
       - name: Commit and push changes
         run: |
-          git add ./k8s/deployment.yaml
+          git add ./hello-world/templates/app.yaml
           git commit -m "Update image to $IMAGE"
           git push origin production
     
