@@ -52,7 +52,7 @@ jobs:
           context: ./app
           file: ./app/Dockerfile
           push: true
-          tags: ghcr.io/${{ github.repository }}/my-static-website:latest
+          tags: ghcr.io/${{ github.repository }}/my-static-website
           cache-from: type=gha,scope=my-static-website
           cache-to: type=gha,mode=max,scope=my-static-website
 
