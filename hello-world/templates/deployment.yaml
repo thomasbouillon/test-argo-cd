@@ -15,6 +15,6 @@ spec:
       revisionHistoryLimit: 1
       containers:
         - name: hello-world
-          image: ghcr.io/thomasbouillon/test-argo-cd/my-static-website@sha256:d993052d5c6e3d78fdc779be8e8e66186e56b6945dc88c493fb2a3e3252ae8ff
+          image: ghcr.io/thomasbouillon/test-argo-cd/my-static-website@sha256:4304acd2cea9dc5257843d30f7a764175207550980bb5d80b2b526f0a915dffc
           ports:
             - containerPort: 3000
