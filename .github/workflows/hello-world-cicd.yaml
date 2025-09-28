@@ -60,7 +60,7 @@ jobs:
         run: |
           echo "Image: ${{ steps.build-push.outputs.imageid }}"
           echo "Digest: ${{ steps.build-push.outputs.digest }}"
-          echo "Manifest: ${{ steps.build-push.outputs.manifest }}"
+          echo "Metadata: ${{ steps.build-push.outputs.metadata }}"
 
   deploy:
     needs: build
