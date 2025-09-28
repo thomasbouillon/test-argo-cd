@@ -96,6 +96,8 @@ jobs:
           fi
 
       - name: Commit and push changes
+        env:
+          IMAGE: ${{ needs.build.outputs.image }}
         run: |
           git add ./hello-world/templates/app.yaml
           git commit -m "Update image to $IMAGE"
