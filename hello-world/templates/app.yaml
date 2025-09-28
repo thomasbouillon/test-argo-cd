@@ -13,7 +13,7 @@ spec:
   template:
     spec:
       containers:
-        - image: sha256:c8d48424669643eef75c5272d6f30739416af9df44451f1f8f84e2ac77e07232:sha256:c8d48424669643eef75c5272d6f30739416af9df44451f1f8f84e2ac77e07232
+        - image: ghcr.io/thomasbouillon/test-argo-cd/my-static-website@sha256:4be2d7cf53f01528027c9ee400399a903dcc30ada9d5feb44c8e392470980005
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -32,7 +32,7 @@ spec:
       revisionHistoryLimit: 1
       containers:
         - name: hello-world
-          image: sha256:c8d48424669643eef75c5272d6f30739416af9df44451f1f8f84e2ac77e07232:sha256:c8d48424669643eef75c5272d6f30739416af9df44451f1f8f84e2ac77e07232
+          image: ghcr.io/thomasbouillon/test-argo-cd/my-static-website@sha256:4be2d7cf53f01528027c9ee400399a903dcc30ada9d5feb44c8e392470980005
           args:
             - "-text=Hello, World! Deployed via ArgoCD"
             - "-listen=:8080"
@@ -64,4 +64,4 @@ spec:
   template:
     spec:
       containers:
-        - image: sha256:c8d48424669643eef75c5272d6f30739416af9df44451f1f8f84e2ac77e07232:sha256:c8d48424669643eef75c5272d6f30739416af9df44451f1f8f84e2ac77e07232
+        - image: ghcr.io/thomasbouillon/test-argo-cd/my-static-website@sha256:4be2d7cf53f01528027c9ee400399a903dcc30ada9d5feb44c8e392470980005
